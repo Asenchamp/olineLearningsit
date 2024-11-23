@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY-{{user.username}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+           <a href="" class="logo">DIY.</a>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+           <div class="profile">
+              <h3 class="name">{{user.username}}</h3>
+              <a href="{% url 'base:create_post' %}" class="btn">Create Post</a>
+              <div class="flex-btn">
+                <a href="http://127.0.0.1:8000/admin/" class="option-btn">Admin</a>
+              </div>
+           </div>
+        </section>
+    </header>   
+    <div class="side-bar" style="height: 100vh; overflow-y: auto; scrollbar-width: none;">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+         </div>
+         <div class="profile">
+            <h3 class="name">{{user.username}}</h3>
+            <a href="{% url 'base:create_post' %}" class="btn ">Create Post</a>
+            <div class="flex-btn">
+              <a href="http://127.0.0.1:8000/admin/" class="option-btn ">Admin</a>
+            </div>
+         </div>
+         <nav class="navbar">
+            <button id="display-teachers" class="btn"><span>Teachers</span></button>
+            <button id="display-students" class="btn"><span>Students</span></button>
+            <button id="display-posts" class="btn"><span>Posts</span></button>
+          </nav>
+    </div>
+
+    <section class="teachers">
+        <div class="instructors"> 
+            <h1 class="heading">expert teachers</h1>
+            <form action="" method="get" type="tetx" class="search-tutor">
+                <input type="text" name="q" placeholder="search for instructor..." required maxlength="100">
+            </form>
+            <div class="box-container">
+                {% for instructor in instructors %}
+                <div class="box">
+                    <div class="tutor">
+                        <img src="{{ instructor.instructor_image.url }}" alt="">
+                        <div>
+                            <h3>{{instructor.name}}</h3>
+                            <p>{{ instructor.instructor_id }}</p>
+                            <span>{{instructor.course}}</span><hr>
+                            <span>{{ instructor.school }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="students" style="display: none;">
+            <h1 class="heading">Students </h1>
+            <form action="" method="get" type="tetx" class="search-tutor">
+                <input type="text" name="q" placeholder="search for students ..." required maxlength="100">
+            </form>
+            <div class="box-container">
+                {% for student in students%}
+                    <div class="box">
+                        <div class="tutor">
+                        <img src="{{ student.student_image.url }}" alt="">
+                                <div>
+                            <h3>{{student.name}}</h3>
+                            <p>{{student.course}}</p>
+                            <p>{{ student.student_id }}</p>
+                            <span>{{ student.cohort }}</span><hr>
+                            <span>{{ student.score }} points</span><hr>
+                            <span>{{ student.school }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="posts" style="display: none;">
+        {% for post in posts %}
+            {% for media in post.media.all %}
+                {% if media.media_type == 'image' %}
+                <section class="watch-video">
+                    <div class="video-container">
+                        <a href="{% url 'base:deletepost' post.id user.id %}" class="inline-btn"> delete</a><br>
+                        <div class="video">
+                            <video src="{{ media.file.url }}"  poster="{{ media.file.url }}" id="video"></video>
+                        </div>
+                        <h3 class="title">{{ post.caption }} <br> <span>{{post.created_at}}</h3>
+                    </div>
+                </section>
+                {% elif media.media_type == 'video' %}
+                <section class="watch-video">
+                    <div class="video-container">
+                        <a href="{% url 'base:deletepost' post.id user.id %}" class="inline-btn"> delete</a><br>
+                        <div class="video">
+                            <video src="{{ media.file.url }}" controls id="video"></video>
+                        </div>
+                        <h3 class="title">{{ post.caption }} <br> <span>{{post.created_at}}</span></h3>
+                    </div>
+                </section>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        
+
+
+
+    <script src="{% static 'users/js/script.js' %}"></script>
+    <script src="{% static 'users/js/iframe.js' %}"></script>
+
+    <script>
+        document.getElementById('display-students').addEventListener('click', function() {
+            // Hide the teachers section
+            document.querySelector('.instructors').style.display = 'none';
+            document.querySelector('.posts').style.display = 'none';
+            
+            // Show the new section
+            document.querySelector('.teachers').style.display = 'block';
+            document.querySelector('.students').style.display = 'block';
+        });
+
+        document.getElementById('display-teachers').addEventListener('click', function() {
+            // Hide the teachers section
+            document.querySelector('.students').style.display = 'none';
+            document.querySelector('.posts').style.display = 'none';
+            
+            // Show the new section
+            document.querySelector('.teachers').style.display = 'block';
+            document.querySelector('.instructors').style.display = 'block';
+        });
+
+        document.getElementById('display-posts').addEventListener('click', function() {
+            // Hide the teachers section
+            document.querySelector('.teachers').style.display = 'none';
+            
+            // Show the new section
+            document.querySelector('.posts').style.display = 'block';
+        });
+
+    </script>
+
+</body>
+</html>
+
+<!--
+"""
+
+
+
+
+
+
+    <div class="container">
+        
+        <div class="posts">
+            {% for post in posts %}
+                <h1>{{ post.caption }}</h1>
+                {% for media in post.media.all %}
+                    {% if media.media_type == 'image' %}
+                        <img src="{{ media.file.url }}" alt="">
+                    {% elif media.media_type == 'video' %}
+                        <video controls>
+                            <source src="{{ media.file.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                {% endfor %}
+                <p>{{ post.created_at }}</p>
+                <p>Likes: {{ post.likes.count }}</p>
+                <form method="post" action="{% url 'base:like_post' post_id=post.id %}">
+                    {% csrf_token %}
+                    <button type="submit">
+                        {% if is_liked %}Unlike{% else %}Like{% endif %}
+                    </button>
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+
+
+"""-->
+
+

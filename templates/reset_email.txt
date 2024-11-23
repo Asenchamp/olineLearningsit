@@ -1,0 +1,9 @@
+Hello {{ user.name }},
+
+You requested for a password reset pin
+Reset pin is {{ resetcode }}
+
+If you didnot please disregard the message
+
+Best regards,
+Your Team

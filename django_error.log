@@ -1,0 +1,7 @@
+"GET /static/login/bg-image.jpg HTTP/1.1" 500 59
+"GET /static/chart/style.css HTTP/1.1" 500 59
+"GET /static/chart/style.css HTTP/1.1" 500 59
+"GET /static/chart/style.css HTTP/1.1" 500 59
+"GET /static/users/css/pdf.css HTTP/1.1" 500 59
+"GET /static/users/pdf/pdf.mjs HTTP/1.1" 500 59
+"GET /static/chart/style.css HTTP/1.1" 500 59

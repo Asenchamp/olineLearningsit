@@ -1,0 +1,47 @@
+{% load static %}
+    
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="{%url 'base:about' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>eLEARNING</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{%url 'base:about' %}" class="nav-item nav-link">About</a>
+                <a href="{%url 'base:courses' %}" class="nav-item nav-link active">Courses</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="{%url 'base:about' %}" class="dropdown-item">About</a>
+                        <a href="{%url 'base:courses' %}" class="dropdown-item">Courses</a>
+                        <a href="{%url 'base:post' %}" class="dropdown-item">Posts</a>
+                        <a href="{%url 'base:login' %}" class="dropdown-item">Join Now</a>
+                    </div>
+                </div>
+                <a href="{%url 'base:contact' %}" class="nav-item nav-link">Contact</a>
+            </div>
+            <a href="{%url 'base:login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">eLEARNING</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{%url 'base:about' %}">Abouut</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="{%url 'base:courses' %}">Courses</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="{%url 'base:courses' %}">Our Team</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+

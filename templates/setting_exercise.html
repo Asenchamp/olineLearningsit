@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Setup</title>
+    <link rel="stylesheet" href="{% static 'users/css/settingexercise.css' %}">
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label for="Question">Question:</label>
+        <input type="text" id="Question" name="Question"><br>
+
+        <label for="A">A:</label>
+        <input type="text" id="A" name="A"><br>
+
+        <label for="B">B:</label>
+        <input type="text" id="B" name="B"><br>
+
+        <label for="C">C:</label>
+        <input type="text" id="C" name="C"><br>
+
+        <label for="D">D:</label>
+        <input type="text" id="D" name="D"><br>
+
+        <label for="Answer">Answer:</label>
+        <input type="text" id="Answer" name="Answer"><br>
+
+        <input type="submit" value="Set">
+    </form>
+</body>
+</html>

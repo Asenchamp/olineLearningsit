@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+</head>
+<body>
+    <div class="slider">
+        <div class="list">
+            <div class="item active" data-type="image">
+                <div class="media-container">
+                    <img src="{% static 'home/img/about.jpg' %}">
+                </div>
+                <div class="content">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.
+                    </p>
+                </div>
+            </div>
+
+
+            {% for post in posts %}
+                {% for media in post.media.all %}
+                    {% if media.media_type == 'image' %}
+                        <div class="item" data-type="image">
+                            <div class="media-container">
+                                <img src="{{ media.file.url }}" alt="">
+                            </div>
+                            <div class="content">
+                                <p>
+                                    {{ post.caption }}
+                                </p>
+                                <p>{{ post.created_at }}</p>
+                            </div>
+                        </div>
+                    {% elif media.media_type == 'video' %}
+                    <div class="item" data-type="video">
+                        <div class="media-container">
+                            <video controls controlsList="nodownload">
+                                <source src="{{ media.file.url }}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="content">
+                            <p>
+                                {{ post.caption }}
+                            </p>
+                            <p>{{ post.created_at }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+        </div>
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+    </div>
+    <script src="{% static 'posts/app.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

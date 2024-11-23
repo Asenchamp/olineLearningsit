@@ -1,0 +1,9 @@
+Hello {{ student.name }},
+
+Welcome to our platform! Your
+ID is: {{ student.student_id }}
+Paswword is: {{ student.password }}
+make sure you  change your  password
+
+Best regards,
+Your Team

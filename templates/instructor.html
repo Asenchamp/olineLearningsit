@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY-{{instructor.name}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'users/css/iframe.css' %}">
+  </head>
+  <body>
+    <header class="header">
+      <section class="flex">
+         <a href="" class="logo">DIY.</a>
+          <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <div id="search-btn" class="fas fa-search"></div>
+              <div id="user-btn" class="fas fa-user"></div>
+              <div id="toggle-btn" class="fas fa-sun"></div>
+          </div>
+         <div class="profile">
+            <img src="{{ instructor.instructor_image.url }}" class="image" alt="">
+            <h3 class="name">{{instructor.name}}</h3>
+            <p class="role">{{instructor.course}}</p>
+            {% if instructor.admin == "True" %}
+            <a href="{% url 'base:Courseadmin' instructor.instructor_id %}" class="btn  sidebar-link">notes</a>
+            {% endif %}
+            <div class="flex-btn">
+              <a href="{% url 'base:changepassword' instructor.instructor_id %}" class="option-btn sidebar-link">ChangePassword</a>
+            </div>
+         </div>
+      </section>
+    </header>   
+    <div class="side-bar" style="height: 100vh; overflow-y: auto; scrollbar-width: none;">
+      <div id="close-btn">
+         <i class="fas fa-times"></i>
+      </div>
+      <div class="profile">
+        <img src="{{ instructor.instructor_image.url }}" class="image" alt="">
+        <h3 class="name">{{instructor.name}}</h3>
+        <p class="role">{{instructor.course}}</p>
+        {% if instructor.admin == "True" %}
+        <a href="{% url 'base:Courseadmin' instructor.instructor_id %}" class="btn  sidebar-link">notes</a>
+        {% endif %}
+        <h2 class="btn" >Cohorts</h2>
+        {% for cohort in cohorts %}
+        <a href="{% url 'base:cohort' cohort.id instructor.course.id instructor.instructor_id %}" class="btn  sidebar-link">{{ cohort.name }}</a>
+        {% endfor %}
+        <div class="flex-btn">
+           <a href="{% url 'base:changepassword' instructor.instructor_id %}" class="option-btn sidebar-link">ChangePassword</a>
+        </div>
+     </div>
+      <nav class="navbar">
+        <a><h1>Topics</h1></a>
+        {% if topics %} {% for topic in topics %}
+        <p>
+          <a href="{% url 'base:notes' topic.id %}" class="sidebar-link"><span>{{ topic.name }}</span></a>
+          <a href="{% url 'base:exercise' instructor.instructor_id topic.id %}" class="sidebar-link">exercise</a>
+        </p>
+        {% endfor %} {% else %}
+        <a><h2>no topics yet</h2></a>
+        {% endif %}
+      </nav>
+    </div>
+    <section class="about" >
+      <div class="row">
+        <iframe id="content-frame" src="" frameborder="0"></iframe>
+      </div>
+    </section>
+    <script src="{% static 'users/js/script.js' %}"></script>
+    <script src="{% static 'users/js/iframe.js' %}"></script>
+  </body>
+</html>

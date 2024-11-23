@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'users/css/courseadmin.css'  %}">
+</head>
+<body>
+  {{ course.name }}
+  <h1>Topics</h1>
+  <hr>
+  <a href="{% url 'base:createnotes' instructor.instructor_id %}" class="btn">Add Topics</a>
+  <hr>
+  
+  {% if topics %}
+      {% for topic in topics %}
+          <div class="topic">
+              <p><strong>{{ topic.name }}</strong></p>
+              <div>
+                  <a href="{% url 'base:updatenotes' instructor.instructor_id topic.id %}">Edit</a>
+                  <a href="{% url 'base:deletenotes' instructor.instructor_id topic.id %}">Delete</a>
+                  <a href="{% url 'base:setexercise' instructor.instructor_id topic.id %}">Set Exercise</a>
+              </div>
+              <p>{{ topic.description }}</p>
+          </div>
+      {% endfor %}
+  {% else %}
+      <p>No topics yet.</p>
+  {% endif %}
+  
+
+</body>
+</html>

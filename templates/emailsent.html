@@ -1,0 +1,7 @@
+{% if messages %}
+    {% for message in messages%}
+    <div>{{message}}</div>
+    {% endfor %}
+{% endif %}
+    <p></p>
+    <p><a href="{% url 'base:resetpassword' userid %}">Resetpassword</a></p>

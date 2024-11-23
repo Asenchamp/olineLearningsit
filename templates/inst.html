@@ -1,0 +1,12 @@
+{% if menu%} {% for instructor in menu%}
+<div>
+    <p>
+        <img src="{{ instructor.instructor_image.url }}" alt="">
+    </p>
+    <p>{{ instructor.instructor_id }}</p>
+    <p>{{ instructor.name }}</p>
+    <p>{{ instructor.email }}</p>
+    <p>{{ instructor.password }}</p>
+</div>
+{% endfor %} {% else %} no courses yet {% endif %}
+<p>

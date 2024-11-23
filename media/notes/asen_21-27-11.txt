@@ -1,0 +1,9 @@
+PRODUCTS RRECEIPT 
+*************************************************
+Product	Quantity	Total
+posho	10.0	20000.0
+rice	5.0	20000.0
+----------------------------------------------------------
+GrandTotal 		20000.0
+ Customer Name: asen
+Time: 21-27-11

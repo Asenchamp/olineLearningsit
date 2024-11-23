@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/391827d54c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'chart/style.css' %}">
+    <title>{{ cohort.name }}_discussion</title>
+  </head>
+  <body>
+    <div class="background-green"></div>
+    <div class="main-container">
+      <div class="right-container">
+        <div class="header">
+          <div class="img-text">
+            <div class="user-img">
+              {% if user.student_image %}
+                <img class="dp" src="{{ user.student_image.url }}" alt="">
+              {% else %}
+                <img class="dp" src="{{ user.instructor_image.url }}" alt="">
+              {% endif %}
+          </div>
+            <h4>{{ cohort.name }}<br><span>hey {{ user.name }}!</span></h4>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          {% for message in cohort_messages %}
+              {% if user.name == message.user %}
+                <div class="message-box my-message">
+                  <p>
+                    <span><a
+                      href="{% url 'base:deletemessage' course.id cohort.id message.id Id %}"
+                      >deletemessage</a>
+                    </span><br>
+                    {{ message.body }}<br>
+                    <span>  {{message.created}}</span></p>
+                </div>
+              {% else %}
+                <div class="message-box friend-message">
+                  <p>
+                    <span>@{{ message.user }}</span>
+                    {{ message.body }}<br>
+                    <span> {{message.created}}</span>
+                  </p>
+                </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+          <form class="chatbox-input" action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="body" placeholder="Type a message">
+          </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
